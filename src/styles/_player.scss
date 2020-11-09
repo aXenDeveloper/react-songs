@@ -8,7 +8,6 @@
 
 .time-control {
     width: 50%;
-    background-color: lightcoral;
     display: flex;
 
     input {
@@ -18,5 +17,17 @@
 
     p {
         padding: 1rem;
+    }
+}
+
+.play-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    width: 30%;
+
+    svg {
+        cursor: pointer;
     }
 }
