@@ -1,13 +1,15 @@
 import React from 'react';
 
-const Song = () => {
-    return (
-        <div className="song-container">
-            <h1>Picture</h1>
-            <p>Song name</p>
-            <p>Artist</p>
-        </div>
-    )
-};
+type Props = {
+    currentSong: any
+}
+
+const Song = ({ currentSong }: Props): JSX.Element => (
+    <div className="song-container">
+        <img src={currentSong.cover} alt={currentSong.name} />
+        <h2>{currentSong.name}</h2>
+        <h3>{currentSong.artist}</h3>
+    </div>
+);
 
 export default Song;
