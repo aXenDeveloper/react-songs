@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { playAudio } from '../util';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
-const Player = ({ currentSong, isPlaying, setIsPlaying, audioRef, setSongInfo, songInfo }): JSX.Element => {
+const Player = ({ currentSong, isPlaying, setIsPlaying, audioRef, setSongInfo, songInfo, songs, setCurrentSong, setSongs }): JSX.Element => {
+
+    useEffect(() => {
+        const newSong = songs.map(song => {
+            if(song.id === currentSong.id) {
+                return {
+                    ...song,
+                    active: true
+                }
+            } else {
+                return {
+                    ...song,
+                    active: false
+                }
+            }
+        });
+        setSongs(newSong);
+    }, [currentSong]);
+
     const playSongHandler = (e: MouseEvent): any => {
         if(isPlaying) {
             audioRef.current.pause();
@@ -20,6 +39,24 @@ const Player = ({ currentSong, isPlaying, setIsPlaying, audioRef, setSongInfo, s
         setSongInfo({...songInfo, currentTime: e.target.value})
     }
 
+    const skipDragHandler = direction => {
+        let currentIndex = songs.findIndex(song => song.id === currentSong.id);
+        
+        if(direction === 'skip-forward') {
+            setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+        }
+
+        if(direction === 'skip-back') {
+            if((currentIndex - 1 ) % songs.length === -1) {
+                setCurrentSong(songs[songs.length - 1]);
+                playAudio(isPlaying, audioRef);
+                return;
+            }
+            setCurrentSong(songs[(currentIndex - 1) % songs.length]);
+        }
+        playAudio(isPlaying, audioRef);
+    };
+
     return (
         <div className="player">
             <div className="time-control">
@@ -29,9 +66,9 @@ const Player = ({ currentSong, isPlaying, setIsPlaying, audioRef, setSongInfo, s
             </div>
 
             <div className="play-control">
-                <FontAwesomeIcon className="skip-back" icon={faAngleLeft} />
+                <FontAwesomeIcon className="skip-back" onClick={() => skipDragHandler('skip-back')} icon={faAngleLeft} />
                 <FontAwesomeIcon className="play" onClick={playSongHandler} icon={isPlaying ? faPause : faPlay} size="2x"/>
-                <FontAwesomeIcon className="skip-forward" icon={faAngleRight} />
+                <FontAwesomeIcon className="skip-forward" onClick={() => skipDragHandler('skip-forward')} icon={faAngleRight} />
             </div>
         </div>
     );

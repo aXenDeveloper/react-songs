@@ -9,7 +9,7 @@ const App = (): React.ReactElement => {
 	const audioRef = useRef(null);
 
 	const [songs, setSongs] = useState(data());
-	const [currentSong, setCurrentSong] = useState(songs[2]);
+	const [currentSong, setCurrentSong] = useState(songs[0]);
 	const [isPlaying, setIsPlaying] = useState<boolean>(false);
 	const [songInfo, setSongInfo] = useState({
 		currentTime: 0,
@@ -31,12 +31,15 @@ const App = (): React.ReactElement => {
 			/>
 			<Song currentSong={currentSong} />
 			<Player
+				songs={songs}
+				setCurrentSong={setCurrentSong}
 				setSongInfo={setSongInfo}
 				songInfo={songInfo}
 				audioRef={audioRef}
 				isPlaying={isPlaying}
 				setIsPlaying={setIsPlaying}
 				currentSong={currentSong}
+				setSongs={setSongs}
 			/>
 			<Libary
 				libraryStatus={libraryStatus}
