@@ -32,7 +32,13 @@ const App = (): React.ReactElement => {
 				setIsPlaying={setIsPlaying}
 				currentSong={currentSong}
 			/>
-			<Libary songs={songs} setCurrentSong={setCurrentSong} />
+			<Libary
+				isPlaying={isPlaying}
+				audioRef={audioRef}
+				songs={songs}
+				setCurrentSong={setCurrentSong}
+				setSongs={setSongs}
+			/>
 			<audio
 				onLoadedMetadata={timeUpdateHendler}
 				onTimeUpdate={timeUpdateHendler}
