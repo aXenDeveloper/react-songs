@@ -3,6 +3,7 @@ import Player from './components/Player';
 import Song from './components/Song';
 import Libary from './components/Library';
 import data from './data';
+import Nav from './components/Nav';
 
 const App = (): React.ReactElement => {
 	const audioRef = useRef(null);
@@ -14,6 +15,7 @@ const App = (): React.ReactElement => {
 		currentTime: 0,
 		duration: 0
 	});
+	const [libraryStatus, setLibraryStatus] = useState<boolean>(false);
 
 	const timeUpdateHendler = (e: React.ChangeEvent<any>): void => {
 		const current = e.target.currentTime;
@@ -23,6 +25,10 @@ const App = (): React.ReactElement => {
 
 	return (
 		<div className='children'>
+			<Nav
+				libraryStatus={libraryStatus}
+				setLibraryStatus={setLibraryStatus}
+			/>
 			<Song currentSong={currentSong} />
 			<Player
 				setSongInfo={setSongInfo}
@@ -33,6 +39,7 @@ const App = (): React.ReactElement => {
 				currentSong={currentSong}
 			/>
 			<Libary
+				libraryStatus={libraryStatus}
 				isPlaying={isPlaying}
 				audioRef={audioRef}
 				songs={songs}
