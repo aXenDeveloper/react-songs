@@ -34,12 +34,12 @@ const Player = ({ currentSong, isPlaying, setIsPlaying, audioRef, setSongInfo, s
 
     const getTime = time => `${Math.floor(time / 60)} : ${("0" + Math.floor(time % 60)).slice(-2)}`;
 
-    const dragHendler = e => {
+    const dragHendler = (e): void => {
         audioRef.current.currentTime = e.target.value;
         setSongInfo({...songInfo, currentTime: e.target.value})
     }
 
-    const skipDragHandler = direction => {
+    const skipDragHandler = (direction: string): void => {
         let currentIndex = songs.findIndex(song => song.id === currentSong.id);
         
         if(direction === 'skip-forward') {

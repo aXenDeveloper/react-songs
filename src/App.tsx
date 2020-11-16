@@ -5,16 +5,44 @@ import Libary from './components/Library';
 import data from './data';
 import Nav from './components/Nav';
 
-const App = (): React.ReactElement => {
-	const audioRef = useRef(null);
+const App = (): JSX.Element => {
+	const audioRef = useRef<HTMLAudioElement | null>(null);
 
-	const [songs, setSongs] = useState(data());
-	const [currentSong, setCurrentSong] = useState(songs[0]);
+	type typeSongs = {
+		name: string;
+		cover: string;
+		artist: string;
+		audio: string;
+		color: string[];
+		id: any;
+		active: boolean;
+	}[];
+
+	const [songs, setSongs] = useState<typeSongs>(data());
+
+	type typeCurrentSong = {
+		name: string;
+		cover: string;
+		artist: string;
+		audio: string;
+		color: string[];
+		id: any;
+		active: boolean;
+	};
+
+	const [currentSong, setCurrentSong] = useState<typeCurrentSong>(songs[0]);
 	const [isPlaying, setIsPlaying] = useState<boolean>(false);
-	const [songInfo, setSongInfo] = useState({
+
+	type typeSongInfo = {
+		currentTime: number;
+		duration: number;
+	};
+
+	const [songInfo, setSongInfo] = useState<typeSongInfo>({
 		currentTime: 0,
 		duration: 0
 	});
+
 	const [libraryStatus, setLibraryStatus] = useState<boolean>(false);
 
 	const timeUpdateHendler = (e: React.ChangeEvent<any>): void => {

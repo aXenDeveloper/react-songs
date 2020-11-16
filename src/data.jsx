@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-const chillHop = () => (
+const chillHop = (): Array => (
   [
     {
       name: "Beaver Creek",
