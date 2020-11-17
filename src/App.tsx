@@ -51,6 +51,12 @@ const App = (): JSX.Element => {
 		setSongInfo({ ...songInfo, currentTime: current, duration });
 	};
 
+	const songEndHendler = async () => {
+		let currentIndex = songs.findIndex(song => song.id === currentSong.id);
+		await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+		if (isPlaying) audioRef.current.play(); // error typescript "Object is possibly 'null'.ts(2531)"
+	};
+
 	return (
 		<div className='children'>
 			<Nav
@@ -81,7 +87,8 @@ const App = (): JSX.Element => {
 				onLoadedMetadata={timeUpdateHendler}
 				onTimeUpdate={timeUpdateHendler}
 				ref={audioRef}
-				src={currentSong.audio}></audio>
+				src={currentSong.audio}
+				onEnded={songEndHendler}></audio>
 		</div>
 	);
 };
