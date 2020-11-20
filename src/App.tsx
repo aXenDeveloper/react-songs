@@ -6,7 +6,7 @@ import data from './data';
 import Nav from './components/Nav';
 
 const App = (): JSX.Element => {
-	const audioRef = useRef<HTMLAudioElement | null>(null);
+	const audioRef = useRef(null);
 
 	type typeSongs = {
 		name: string;
