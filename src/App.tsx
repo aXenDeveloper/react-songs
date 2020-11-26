@@ -59,10 +59,7 @@ const App = (): JSX.Element => {
 
 	return (
 		<div className='children'>
-			<Nav
-				libraryStatus={libraryStatus}
-				setLibraryStatus={setLibraryStatus}
-			/>
+			<Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
 			<Song currentSong={currentSong} />
 			<Player
 				songs={songs}
@@ -75,20 +72,8 @@ const App = (): JSX.Element => {
 				currentSong={currentSong}
 				setSongs={setSongs}
 			/>
-			<Libary
-				libraryStatus={libraryStatus}
-				isPlaying={isPlaying}
-				audioRef={audioRef}
-				songs={songs}
-				setCurrentSong={setCurrentSong}
-				setSongs={setSongs}
-			/>
-			<audio
-				onLoadedMetadata={timeUpdateHendler}
-				onTimeUpdate={timeUpdateHendler}
-				ref={audioRef}
-				src={currentSong.audio}
-				onEnded={songEndHendler}></audio>
+			<Libary libraryStatus={libraryStatus} isPlaying={isPlaying} audioRef={audioRef} songs={songs} setCurrentSong={setCurrentSong} setSongs={setSongs} />
+			<audio onLoadedMetadata={timeUpdateHendler} onTimeUpdate={timeUpdateHendler} ref={audioRef} src={currentSong.audio} onEnded={songEndHendler}></audio>
 		</div>
 	);
 };
